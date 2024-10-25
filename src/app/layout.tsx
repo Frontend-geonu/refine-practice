@@ -48,6 +48,7 @@ export default function RootLayout({
                       useNewQueryKeys: true,
                       projectId: "wtPQ1C-AA1mrc-Nw8uLk",
                     }}
+                   
                   >
                     {children}
                     <RefineKbar />
