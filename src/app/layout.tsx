@@ -9,8 +9,9 @@ import React, { Suspense } from "react";
 
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 import { ColorModeContextProvider } from "@contexts/color-mode";
-import { dataProvider } from "@providers/data-provider";
+import dataProvider from "@refinedev/graphql";
 import "@refinedev/antd/dist/reset.css";
+import { client, graphqlDataProvider } from "@providers/data-provider";
 
 export const metadata: Metadata = {
   title: "Refine",
@@ -40,7 +41,7 @@ export default function RootLayout({
                 <DevtoolsProvider>
                   <Refine
                     routerProvider={routerProvider}
-                    dataProvider={dataProvider}
+                    dataProvider={graphqlDataProvider}
                     notificationProvider={useNotificationProvider}
                     options={{
                       syncWithLocation: true,
@@ -48,7 +49,6 @@ export default function RootLayout({
                       useNewQueryKeys: true,
                       projectId: "wtPQ1C-AA1mrc-Nw8uLk",
                     }}
-                   
                   >
                     {children}
                     <RefineKbar />

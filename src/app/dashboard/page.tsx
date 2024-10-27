@@ -1,70 +1,70 @@
-"use client"
+"use client";
 
 import { List, TagField, useTable } from "@refinedev/antd";
 import { useList } from "@refinedev/core";
 import { Table } from "antd";
 import { gql } from "graphql-tag";
+import Image from "next/image";
 
 const MEMBER_LEVEL_COMMMON = gql`
-    fragment MemberLevelCommon on MemberLevel {
-  id
-  name
-  iconUrl
-}
-
-`
+  fragment MemberLevelCommon on MemberLevel {
+    id
+    name
+    iconUrl
+  }
+`;
 
 const BOOKMARK_BUTTON_MENU = gql`
-fragment BookmarkButton_menu on Menu {
-  id
-  bookmarkable
-  viewerHasBookmarked
-}
-`
+  fragment BookmarkButton_menu on Menu {
+    id
+    bookmarkable
+    viewerHasBookmarked
+  }
+`;
 
 const SCREEN_BOARD_MAIN_ALL_POSTS = gql`
-fragment ScreenBoardMain_AllPosts on Post {
-  id
-  title
-  nickname
-  likes
-  createdAt
-  views
-  status
-  score
-  # isGlobalNotice
-  # isBoardNotice
-  postNumber
-  scrapCount
-  commentCount
-  imageSrc
-  youtubeSrc
-  answeredByCoach
-  isCoachAnswerSelected
-  board {
-    slug
-    title
-    showCoachValues
-  }
-  author {
+  fragment ScreenBoardMain_AllPosts on Post {
     id
+    title
     nickname
-    memberLevel {
-      ...MemberLevelCommon
+    likes
+    createdAt
+    views
+    status
+    score
+    # isGlobalNotice
+    # isBoardNotice
+    postNumber
+    scrapCount
+    commentCount
+    imageSrc
+    youtubeSrc
+    answeredByCoach
+    isCoachAnswerSelected
+    board {
+      slug
+      title
+      showCoachValues
     }
-    isAdmin
-    isCoach
-    coach {
-      exposedQualificationName
+    author {
+      id
+      nickname
+      memberLevel {
+        ...MemberLevelCommon
+      }
+      isAdmin
+      isCoach
+      coach {
+        exposedQualificationName
+      }
     }
   }
-}
 
-${MEMBER_LEVEL_COMMMON}
-`
+  ${MEMBER_LEVEL_COMMMON}
+`;
 
 const POST_LIST_QUERY = gql`
-query gqlPostCommunityV2(
+  query gqlPostCommunityV2(
     $orderBy: AllPostsOrderInput
     $pagination: Pagination
     $filterBy: AllPostsFiltersInput
@@ -80,7 +80,7 @@ query gqlPostCommunityV2(
         isNotice
         ...ScreenBoardMain_AllPosts
       }
-      pageCount(limit: $limit)
+      count: pageCount(limit: $limit)
     }
     boardBySlug(boardSlug: "community") {
       id
@@ -94,30 +94,33 @@ query gqlPostCommunityV2(
       }
     }
   }
-  
+
   ${SCREEN_BOARD_MAIN_ALL_POSTS}
   ${BOOKMARK_BUTTON_MENU}
-` 
+`;
 
 const PostList: React.FC = () => {
-  const aaa = useList({resource:"posts", meta:{gqlQuery:POST_LIST_QUERY}});
+  const { tableProps } = useTable({
+    resource: "allPosts",
+    meta: { gqlQuery: POST_LIST_QUERY },
+  });
 
-  console.log(aaa)
-  return null;
-  // return (
-  //   <List>
-  //     <Table {...tableProps} rowKey="id">
-  //       <Table.Column dataIndex="id" title="ID" />
-  //       <Table.Column dataIndex="title" title="Title" />
-  //       <Table.Column dataIndex="content" title="Content" />
-  //       <Table.Column
-  //         dataIndex="status"
-  //         title="Status"
-  //         render={(value: string) => <TagField value={value} />}
-  //       />
-  //     </Table>
-  //   </List>
-  // );
+  return (
+    <Table {...tableProps} rowKey="id" style={{ margin: "40px" }}>
+      <Table.Column dataIndex="id" title="ID" />
+      <Table.Column dataIndex="title" title="제목" />
+      <Table.Column dataIndex="nickname" title="닉네임" />
+      <Table.Column dataIndex="views" title="조회수" />
+      <Table.Column dataIndex="likes" title="좋아요수" />
+      <Table.Column
+        dataIndex="imageSrc"
+        title="썸네일"
+        render={(imageSrc) => (
+          <img src={imageSrc} alt="이미지" width="50" height="50" />
+        )}
+      />
+    </Table>
+  );
 };
 
-export default PostList
+export default PostList;
