@@ -1,10 +1,8 @@
 "use client";
 
-import { List, TagField, useTable } from "@refinedev/antd";
-import { useList } from "@refinedev/core";
+import { useTable } from "@refinedev/antd";
 import { Table } from "antd";
 import { gql } from "graphql-tag";
-import Image from "next/image";
 
 const MEMBER_LEVEL_COMMMON = gql`
   fragment MemberLevelCommon on MemberLevel {
