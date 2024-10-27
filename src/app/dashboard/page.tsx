@@ -104,7 +104,7 @@ const PostList: React.FC = () => {
   });
 
   return (
-    <Table {...tableProps} rowKey="id" style={{ margin: "40px" }}>
+    <Table {...tableProps} rowKey="id" className="m-10">
       <Table.Column dataIndex="id" title="ID" />
       <Table.Column dataIndex="title" title="제목" />
       <Table.Column dataIndex="nickname" title="닉네임" />

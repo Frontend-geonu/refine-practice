@@ -12,6 +12,7 @@ import { ColorModeContextProvider } from "@contexts/color-mode";
 import dataProvider from "@refinedev/graphql";
 import "@refinedev/antd/dist/reset.css";
 import { client, graphqlDataProvider } from "@providers/data-provider";
+import "./global.css";
 
 export const metadata: Metadata = {
   title: "Refine",
