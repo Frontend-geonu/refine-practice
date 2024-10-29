@@ -23,7 +23,7 @@ Refine's hooks and components simplifies the development process and eliminates 
     npm run dev
 ```
 
-### Building for production.
+### Building for production
 
 ```bash
     npm run build
