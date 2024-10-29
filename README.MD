@@ -17,7 +17,7 @@ Refine's hooks and components simplifies the development process and eliminates 
 
 ## Available Scripts
 
-### Running the development server.
+### Running the development server
 
 ```bash
     npm run dev
